@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>AI Feedback Analysis Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <h1>📊 AI Feedback Analysis Dashboard</h1>
+
+        <!-- Upload Card -->
+        <div class="card">
+            <h2>📂 Upload Feedback CSV</h2>
+
+            <input type="file" id="bulkFile" accept=".csv" />
+
+            <br><br>
+
+            <button id="analyzeBtn" onclick="uploadCSV()" disabled>
+        Analyze File
+      </button>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats">
+
+            <div class="box">
+                Total<br>
+                <span id="total">0</span>
+            </div>
+
+            <div class="box green">
+                Positive<br>
+                <span id="pos">0</span>
+            </div>
+
+            <div class="box gray">
+                Neutral<br>
+                <span id="neu">0</span>
+            </div>
+
+            <div class="box red">
+                Negative<br>
+                <span id="neg">0</span>
+            </div>
+
+        </div>
+
+        <!-- Overall Review -->
+        <h3 id="overall">🧠 Overall Review: —</h3>
+
+        <!-- Charts -->
+        <div class="charts">
+            <canvas id="pieChart"></canvas>
+            <canvas id="barChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="/script.js"></script>
+    <!-- Train Model Card -->
+    <div class="card">
+        <h2>🧠 Train Sentiment Model</h2>
+
+        <p style="opacity:0.8">
+            Upload labeled dataset (feedback + sentiment)
+        </p>
+
+        <input type="file" id="trainFile" accept=".csv">
+        <br><br>
+
+        <button onclick="trainModel()">Train Model</button>
+
+        <p id="trainStatus"></p>
+    </div>
+    <!-- Test Model -->
+    <div class="card glow">
+        <h2>🧪 Test Model (Evaluation)</h2>
+
+        <input type="file" id="testFile" accept=".csv">
+        <br><br>
+
+        <button onclick="testModel()">Run Test</button>
+
+        <h3 id="testOverall">🧠 Test Result: —</h3>
+    </div>
+    <div class="overall-card mixed">
+        <h2>🧠 Overall Sentiment</h2>
+        <h1>MIXED</h1>
+        <p>Balanced feedback with equal responses</p>
+    </div>
+
+
+
+
+    <!-- Enable button only when file selected -->
+    <script>
+        const fileInput = document.getElementById("bulkFile");
+        const analyzeBtn = document.getElementById("analyzeBtn");
+
+        fileInput.addEventListener("change", () => {
+            analyzeBtn.disabled = !fileInput.files.length;
+        });
+    </script>
+
+</body>
+
+</html>
